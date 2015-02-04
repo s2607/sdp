@@ -42,7 +42,7 @@ func enc(src []byte) []byte {
 	dst := make([]byte, len(src))
 	c.XORKeyStream(dst, src)
 
-	return nil
+	return dst
 }
 func data() string {
 	s, e := ioutil.ReadFile("./hellokitty2.jpg")
@@ -50,7 +50,7 @@ func data() string {
 		eprint(1, e)
 		return ""
 	}
-	out := base64.StdEncoding.EncodeToString(s)
+	out := base64.StdEncoding.EncodeToString(enc(s))
 
 	return " \n da=\"" + out + "\"; \n</script>"
 }
