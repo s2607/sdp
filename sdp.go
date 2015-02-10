@@ -45,11 +45,12 @@ func enc(src []byte) []byte {
 	return dst
 }
 func data() string {
-	s, e := ioutil.ReadFile("./hellokitty2.jpg")
+	/*s, e := ioutil.ReadFile("./hellokitty2.jpg")
 	if e != nil {
 		eprint(1, e)
 		return ""
-	}
+	}*/
+	s := []byte("hello world from crypto land")
 	out := base64.StdEncoding.EncodeToString(enc(s))
 
 	return " \n da=\"" + out + "\"; \n</script>"

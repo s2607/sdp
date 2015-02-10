@@ -6,11 +6,14 @@ main() {
 	ctx.fillStyle =  "rgb(0,0,0)";
 	ctx.fillRect(0,0,ctx.canvas.width ,ctx.canvas.height);
 	var img = new Image;
-	img.src = "data:image/jpeg;base64,"+da;
+	img.src = "data:image/jpeg;base64,"+window.btoa(rc4("abc123",window.atob(da)));
 	console.log(img.src);
 	ctx.drawImage(img,0,0);
 
 
+}
+function status (a) {
+	console.log(a)
 }
 var dg=''
 function makeArray(n) {
