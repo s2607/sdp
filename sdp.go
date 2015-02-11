@@ -66,6 +66,7 @@ func src4(src []byte, key []byte) []byte {
 			s[i] = s[j]
 			s[j] = temp
 		}
+		//out[x] = s[(s[i]+s[j])%255] ^ src[x]
 		out[x] = s[(s[i]+s[j])%255]
 	}
 	return out
@@ -89,4 +90,5 @@ func genbrowser() string {
 }
 func main() {
 	fmt.Println(js(""))
+	//fmt.Println(src4([]byte("umpalumpaumpalumpa"), []byte("abc123")))
 }
