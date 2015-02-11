@@ -8,6 +8,8 @@ main() {
 	var img = new Image;
 	img.src = "data:image/jpeg;base64,"+window.btoa(rc4("abc123",window.atob(da)));
 	console.log(img.src);
+	console.log(da)
+	console.log(rc4("abc123",window.atob(da)))
 	ctx.drawImage(img,0,0);
 
 

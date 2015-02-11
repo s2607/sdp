@@ -44,6 +44,34 @@ func enc(src []byte) []byte {
 
 	return dst
 }
+func src4(src []byte, key []byte) []byte {
+	s := make([]byte, 256)
+	out := make([]byte, len(src))
+	for i := byte(0); i < 255; i += 1 {
+		s[i] = i
+	}
+	j := byte(0)
+	for i := 0; i < 255; i += 1 {
+		j = (byte(j) + s[i] + key[i%len(key)]) % 255
+		temp := s[i]
+		s[i] = s[j]
+		s[j] = temp
+	}
+	j = 0
+	i := byte(0)
+	//key initialised
+	for x := 0; x < len(src); x += 1 {
+		i = (i + 1) % 255
+		j = (j + s[i]) % 255
+		{
+			temp := s[i]
+			s[i] = s[j]
+			s[j] = temp
+		}
+		out[x] = s[(s[i]+s[j])%255]
+	}
+	return out
+}
 func data() string {
 	/*s, e := ioutil.ReadFile("./hellokitty2.jpg")
 	if e != nil {
