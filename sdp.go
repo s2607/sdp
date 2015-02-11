@@ -79,10 +79,19 @@ func data() string {
 		return ""
 	}*/
 	s := []byte("hello world from crypto land")
-	out := base64.StdEncoding.EncodeToString(enc(s))
+	out := base64.StdEncoding.EncodeToString(src4(s, []byte("abc123")))
 
-	return " \n da=\"" + out + "\"; \n</script>"
+	return " \n da=\"" + string(out) + "\";"
+}
+func ehtml() string {
+	return "\n</script>"
+}
+func gencli() string {
+	return js() + data()
+}
+func genbrowser() string {
+	return proto() + escape(defhtml()+js()+data()+ehtml())
 }
 func main() {
-	fmt.Println(proto() + escape(defhtml()+js()+data()))
+	fmt.Println(gencli())
 }
