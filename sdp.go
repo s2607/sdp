@@ -8,8 +8,6 @@ import "io/ioutil"
 //import "io"
 import "encoding/base64"
 
-import "crypto/rc4"
-
 func eprint(lvl int, a ...interface{}) {
 	if lvl > 0 && a != nil && a[0] != nil {
 		fmt.Println(a)
@@ -20,30 +18,30 @@ func proto() string {
 	return "data:text/html,"
 }
 func defhtml() string {
-	return "<title>self decrypting image</title><body onload=\"main();\"><canvas id=a>"
+	return "<title>self decrypting image</title><body onload=\"main();\"><canvas id=a>" + "<script>"
 }
-func js() string {
-	s, e := ioutil.ReadFile("./dc.js")
+func js(mfile string) string {
+	dc, e := ioutil.ReadFile("./dc.js")
+	out := ""
 	if e != nil {
 		eprint(1, e)
 		return ""
 	}
-	return "<script>" + string(s)
+	out = out + string(dc)
+	if len(mfile) > 0 {
+		jsmain, e := ioutil.ReadFile(mfile)
+		if e != nil {
+			eprint(1, e)
+			return ""
+		}
+		out = out + string(jsmain)
+	}
+	return out + data()
 }
 func escape(in string) string {
 	return strings.Replace(url.QueryEscape(in), "+", "%20", -1)
 }
-func enc(src []byte) []byte {
-	key := []byte("abc123")
-	c, err := rc4.NewCipher(key)
-	if err != nil {
-		fmt.Println("fuck")
-	}
-	dst := make([]byte, len(src))
-	c.XORKeyStream(dst, src)
 
-	return dst
-}
 func src4(src []byte, key []byte) []byte {
 	s := make([]byte, 256)
 	out := make([]byte, len(src))
@@ -86,12 +84,9 @@ func data() string {
 func ehtml() string {
 	return "\n</script>"
 }
-func gencli() string {
-	return js() + data()
-}
 func genbrowser() string {
-	return proto() + escape(defhtml()+js()+data()+ehtml())
+	return proto() + escape(defhtml()+js("./bmain.js")+ehtml())
 }
 func main() {
-	fmt.Println(gencli())
+	fmt.Println(js(""))
 }
