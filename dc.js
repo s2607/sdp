@@ -6,6 +6,7 @@ src4(ssrc , skey ) {
 	var src = []
 	for (var i=0 ; i<ssrc.length; i++)
 		src.push(ssrc.charCodeAt(i))
+	print("hello")
 
 	//s := make([]byte, 256)
 	var s = []
@@ -13,16 +14,19 @@ src4(ssrc , skey ) {
 	//out := make([]byte, len(src))
 	var out = ""
 	var i=0
-	for (i = 0; i < 255; i += 1) {
-		s[i] = i
+	for (i = 0; i < 256; i += 1) {
+		s[i] = i%255
 	}
+	print(s)
 	var j = 0
 	for (i = 0; i < 255; i += 1) {
-		j = (j + s[i] + key[i%key.length]) % 255
+		j = (j%255 + s[i] %255+ key[i%key.length]) % 255
 		temp = s[i]
 		s[i] = s[j]
 		s[j] = temp
+		print(s[i])
 	}
+	print(s)
 	j = 0
 	i = 0
 	//key initialised

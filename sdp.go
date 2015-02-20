@@ -48,16 +48,25 @@ func src4(src []byte, key []byte) []byte {
 	for i := byte(0); i < 255; i += 1 {
 		s[i] = i
 	}
+	fmt.Print("//")
+	fmt.Println(s)
+	fmt.Print("//")
 	j := byte(0)
 	for i := 0; i < 255; i += 1 {
 		j = (byte(j) + s[i] + key[i%len(key)]) % 255
 		temp := s[i]
 		s[i] = s[j]
 		s[j] = temp
+		fmt.Print(s[i])
+		fmt.Print(" ")
 	}
+	fmt.Println("//--")
+	fmt.Print("//")
+	fmt.Println(s)
 	j = 0
 	i := byte(0)
 	//key initialised
+	fmt.Print("//")
 	for x := 0; x < len(src); x += 1 {
 		i = (i + 1) % 255
 		j = (j + s[i]) % 255
@@ -66,9 +75,12 @@ func src4(src []byte, key []byte) []byte {
 			s[i] = s[j]
 			s[j] = temp
 		}
-		//out[x] = s[(s[i]+s[j])%255] ^ src[x]
-		out[x] = s[(s[i]+s[j])%255]
+		out[x] = s[(s[i]+s[j])%255] ^ src[x]
+		fmt.Print(s[(s[i]+s[j])%255])
+		fmt.Print(" ")
+		//	out[x] = s[(s[i]+s[j])%255]
 	}
+	fmt.Println("")
 	return out
 }
 func data() string {
