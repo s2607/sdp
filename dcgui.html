@@ -76,7 +76,12 @@ function gtm() {
 inbox=document.getElementById('programoutput')
 outbox=document.getElementById('tmout')
 guienc2()
-outbox.value="data:text/html,"+mks(inbox.value,"text");
+//outbox.value="data:text/html,"+mks(inbox.value,"text");
+var body = document.body
+var newAnchor = document.createElement('a')
+newAnchor.setAttribute('href',"data:text/html,"+mks(inbox.value,"text"))
+newAnchor.innerHTML = "This is your message, bookmark it or copy the URI to your favorite notes/text editor"
+body.appendChild(newAnchor)
 }
 </script>
 
@@ -84,15 +89,16 @@ outbox.value="data:text/html,"+mks(inbox.value,"text");
 <body>
 <h1>Create self decrypting messages</h1>
 (Beta)<br>
+<hr>
+<p>This tool lets you store and share secret messages without having to have a specail app to decrypt them. 
+Simply type in your message and a secret password. The generate button creates a data URI (a special link that contains data and doesnt point anywhere) containing your message and a decryption program.
+you can bookmark that link or send it to a freind who can keep it hidden</p>
+<hr>
 <h2>Text</h2>
 <hr>
-<input id="key" type="text" value="password"/>
+<textarea name="a" id="messagetext" rows="5" cols="25"  >Input message text here</textarea><br>
+<input id="key" type="text" value="password"/><br>
 <input id="b" type="submit" value="generate" onClick="gtm()"/>
-<textarea name="a" id="messagetext" rows="10" cols="50">Input message text here</textarea>
-<textarea name="b" id="tmout" rows="10" cols="50">UUUUUUUUU</textarea>
-<h2>RC4 Crypto test</h2>
 <hr>
-<textarea name="b" id="programoutput" rows="10" cols="50">UUUUUUUUU</textarea>
-<input id="b" type="submit" onClick="guienc2()"/>
-<input id="c" type="submit" onClick="guidec()"/>
+<textarea name="b" hidden="true" id="programoutput" rows="10" cols="50">UUUUUUUUU</textarea>
 </body>
