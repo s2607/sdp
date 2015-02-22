@@ -53,11 +53,10 @@ function mks(data, type) {
 	var out="<title>Self Decrypting Message</title><body onload=\"main();\">"
 	if (type=="text")
 	{
-		out=out+"<textarea id=\"o\">e</textarea>"
 		out=out+"<script> "
 		out=out+document.getElementById('dc').innerHTML
 		out=out+"d=\""+data+"\";\n"
-out=out+"  function main(){document.getElementById('o').value=src4(\"abc123\",window.atob(d))}"
+out=out+"  function main(){document.body.innerHTML=src4(\"abc123\",window.atob(d))}"
 		out=out+ "<\/script>"
 
 	}
