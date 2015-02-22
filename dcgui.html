@@ -1,5 +1,68 @@
 <html>
-<script src="./dc.js"/>
+<script id=dc>
+function
+src4( skey , ssrc) {
+	var key = []
+	for (var i=0 ; i<skey.length; i++)
+		key.push(skey.charCodeAt(i))
+	var src = [ssrc.length]
+	for (var i=0 ; i<ssrc.length; i++)
+		src[i]=ssrc.charCodeAt(i)
+	//print("hello")
+
+	//s := make([]byte, 256)
+	var s = []
+
+	//out := make([]byte, len(src))
+	var out = ""
+	var i=0
+	for (i = 0; i < 256; i += 1) {
+		s[i] = i%255
+	}
+	//print(s)
+	var j = 0
+	for (i = 0; i < 255; i += 1) {
+		j = (j%255 + s[i] %255+ key[i%key.length]) % 255
+		temp = s[i]
+		s[i] = s[j]
+		s[j] = temp
+		//print(s[i])
+	}
+	//print(s)
+	j = 0
+	i = 0
+	//key initialised
+	for (x = 0; x < src.length; x += 1) {
+		i = (i + 1) % 255
+		j = (j + s[i]) % 255
+		{
+			temp = s[i]
+			s[i] = s[j]
+			s[j] = temp
+		}
+	out = out + String.fromCharCode(s[(s[i]+s[j])%255]^src[x])
+	//	out = out +" " + s[(s[i]+s[j])%255]
+	}
+	return out
+}
+
+</script>
+<script>
+
+function mks(data, type) {
+	var out="<title>Self Decrypting Message</title><body onload=\"main();\">"
+	if (type=="text")
+	{
+		out=out+"<textarea id=\"o\">e</textarea>"
+		out=out+"<script> "
+		out=out+document.getElementById('dc').innerHTML
+		out=out+"d=\""+window.btoa(data)+"\";\n"
+out=out+"  function main(){document.getElementById('o').value=src4(\"abc123\",window.atob(d))}"
+		out=out+ "<\/script>"
+
+	}
+	return out
+}
 </script>
 <script>
 function guienc2() {
@@ -10,16 +73,23 @@ function guidec() {
 document.getElementById('messagetext').value=	src4("abc123",window.atob(document.getElementById('programoutput').value));
 
 }
+function gtm() {
+inbox=document.getElementById('messagetext')
+outbox=document.getElementById('programoutput')
+
+outbox.value=mks(src4("abc123",window.atob(inbox.value)),"text");
+}
 </script>
+
 <title> Self Decrypting Message Genorator de swiley.net</title>
 <body>
 <h1>Create self decrypting messages</h1>
 (Beta)<br>
 <h2>Text</h2>
 <hr>
-<input id="b" type="submit" text="generate" onClick="guienc2()"/>
-<textarea name="a" id="messagetext" rows="10" cols="50">Input message text here</textarea>
-<textarea name="b" id="programoutput" rows="10" cols="50">UUUUUUUUU</textarea>
+<input id="b" type="submit" value="generate" onClick="gtm()"/>
+<textarea name="a" id="tmes" rows="10" cols="50">Input message text here</textarea>
+<textarea name="b" id="tmout" rows="10" cols="50">UUUUUUUUU</textarea>
 <h2>RC4 Crypto test</h2>
 <hr>
 <textarea name="a" id="messagetext" rows="10" cols="50">Input message text here</textarea>
