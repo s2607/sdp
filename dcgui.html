@@ -56,7 +56,7 @@ function mks(data, type) {
 		out=out+"<script> "
 		out=out+document.getElementById('dc').innerHTML
 		out=out+"d=\""+data+"\";\n"
-out=out+"  function main(){document.body.innerHTML=src4(\"abc123\",window.atob(d))}"
+out=out+"  function main(){document.body.innerHTML=src4(prompt(\"enter the decryption key\"),window.atob(d))}"
 		out=out+ "<\/script>"
 
 	}
@@ -65,7 +65,7 @@ out=out+"  function main(){document.body.innerHTML=src4(\"abc123\",window.atob(d
 </script>
 <script>
 function guienc2() {
-document.getElementById('programoutput').value=	window.btoa(src4("abc123",document.getElementById('messagetext').value));
+document.getElementById('programoutput').value=	window.btoa(src4(document.getElementById('key').value,document.getElementById('messagetext').value));
 
 }
 function guidec() {
@@ -86,6 +86,7 @@ outbox.value="data:text/html,"+mks(inbox.value,"text");
 (Beta)<br>
 <h2>Text</h2>
 <hr>
+<input id="key" type="text" value="password"/>
 <input id="b" type="submit" value="generate" onClick="gtm()"/>
 <textarea name="a" id="messagetext" rows="10" cols="50">Input message text here</textarea>
 <textarea name="b" id="tmout" rows="10" cols="50">UUUUUUUUU</textarea>
