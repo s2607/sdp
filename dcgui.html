@@ -1,15 +1,24 @@
 <html>
+<script src="./dc.js"/>
+</script>
 <script>
-function guienc() {
-document.getElementById('programoutput').value= document.getElementById('messagetext').value;
-	
+function guienc2() {
+document.getElementById('programoutput').value=	window.btoa(src4("abc123",document.getElementById('messagetext').value));
+
+}
+function guidec() {
+document.getElementById('messagetext').value=	src4("abc123",window.atob(document.getElementById('programoutput').value));
+
 }
 </script>
-<title> alhdjfaskf</title>
+<title> Self Decrypting Message Genorator de swiley.net</title>
 <body>
 <h1>Create self decrypting messages</h1>
-Beta<br>
+(Beta)<br>
+<h2>RC4 Crypto test</h2>
+<hr>
 <textarea name="a" id="messagetext" rows="10" cols="50">Input message text here</textarea>
 <textarea name="b" id="programoutput" rows="10" cols="50">UUUUUUUUU</textarea>
-<input id="b" type="submit" onClick="guienc()"/>
+<input id="b" type="submit" onClick="guienc2()"/>
+<input id="c" type="submit" onClick="guidec()"/>
 </body>

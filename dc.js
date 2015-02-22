@@ -1,12 +1,12 @@
 function
-src4(ssrc , skey ) {
+src4( skey , ssrc) {
 	var key = []
 	for (var i=0 ; i<skey.length; i++)
 		key.push(skey.charCodeAt(i))
-	var src = []
+	var src = [ssrc.length]
 	for (var i=0 ; i<ssrc.length; i++)
-		src.push(ssrc.charCodeAt(i))
-	print("hello")
+		src[i]=ssrc.charCodeAt(i)
+	//print("hello")
 
 	//s := make([]byte, 256)
 	var s = []
@@ -17,16 +17,16 @@ src4(ssrc , skey ) {
 	for (i = 0; i < 256; i += 1) {
 		s[i] = i%255
 	}
-	print(s)
+	//print(s)
 	var j = 0
 	for (i = 0; i < 255; i += 1) {
 		j = (j%255 + s[i] %255+ key[i%key.length]) % 255
 		temp = s[i]
 		s[i] = s[j]
 		s[j] = temp
-		print(s[i])
+		//print(s[i])
 	}
-	print(s)
+	//print(s)
 	j = 0
 	i = 0
 	//key initialised
@@ -38,8 +38,8 @@ src4(ssrc , skey ) {
 			s[i] = s[j]
 			s[j] = temp
 		}
-		//out = out + String.fromCharCode(s[(s[i]+s[j])%255]^src[x])
-		out = out +" " + s[(s[i]+s[j])%255]
+	out = out + String.fromCharCode(s[(s[i]+s[j])%255]^src[x])
+	//	out = out +" " + s[(s[i]+s[j])%255]
 	}
 	return out
 }
