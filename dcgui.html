@@ -56,12 +56,12 @@ function mks(data, type) {
 		out=out+"<textarea id=\"o\">e</textarea>"
 		out=out+"<script> "
 		out=out+document.getElementById('dc').innerHTML
-		out=out+"d=\""+window.btoa(data)+"\";\n"
+		out=out+"d=\""+data+"\";\n"
 out=out+"  function main(){document.getElementById('o').value=src4(\"abc123\",window.atob(d))}"
 		out=out+ "<\/script>"
 
 	}
-	return out
+	return encodeURIComponent(out)
 }
 </script>
 <script>
@@ -74,10 +74,10 @@ document.getElementById('messagetext').value=	src4("abc123",window.atob(document
 
 }
 function gtm() {
-inbox=document.getElementById('messagetext')
-outbox=document.getElementById('programoutput')
-
-outbox.value=mks(src4("abc123",window.atob(inbox.value)),"text");
+inbox=document.getElementById('programoutput')
+outbox=document.getElementById('tmout')
+guienc2()
+outbox.value="data:text/html,"+mks(inbox.value,"text");
 }
 </script>
 
@@ -88,11 +88,10 @@ outbox.value=mks(src4("abc123",window.atob(inbox.value)),"text");
 <h2>Text</h2>
 <hr>
 <input id="b" type="submit" value="generate" onClick="gtm()"/>
-<textarea name="a" id="tmes" rows="10" cols="50">Input message text here</textarea>
+<textarea name="a" id="messagetext" rows="10" cols="50">Input message text here</textarea>
 <textarea name="b" id="tmout" rows="10" cols="50">UUUUUUUUU</textarea>
 <h2>RC4 Crypto test</h2>
 <hr>
-<textarea name="a" id="messagetext" rows="10" cols="50">Input message text here</textarea>
 <textarea name="b" id="programoutput" rows="10" cols="50">UUUUUUUUU</textarea>
 <input id="b" type="submit" onClick="guienc2()"/>
 <input id="c" type="submit" onClick="guidec()"/>
