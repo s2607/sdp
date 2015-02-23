@@ -56,10 +56,11 @@ function mks(data, type,encscripts) {
 			out=out+"var k='abc'"
 		out=out+document.getElementById('dc').innerHTML
 		out=out+"d=\""+data+"\";\n"
-		out=out+"  function main(){document.body.innerHTML=src4(k=prompt(\"enter the decryption key\"),window.atob(d))}\n"
 		out=out+"s='"+encscripts+"';\n"
-		out=out+"eval(src4(k,windo.atob(s)))\n"
+		out=out+"  function main(){document.body.innerHTML=src4(k=prompt(\"enter the decryption key\"),window.atob(d))\n"
+		out=out+"eval(src4(k,window.atob(s)))\n"
 		out=out+"exmain();ai()"
+		out=out+"}\n"
 		out=out+ "<\/script>"
 
 	}
