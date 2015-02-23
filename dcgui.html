@@ -48,14 +48,18 @@ src4( skey , ssrc) {
 </script>
 <script>
 
-function mks(data, type) {
+function mks(data, type,encscripts) {
 	var out="<title>Self Decrypting Message</title><body onload=\"main();\">"
 	if (type=="text")
 	{
 		out=out+"<script> "
+			out=out+"var k='abc'"
 		out=out+document.getElementById('dc').innerHTML
 		out=out+"d=\""+data+"\";\n"
-out=out+"  function main(){document.body.innerHTML=src4(prompt(\"enter the decryption key\"),window.atob(d))}"
+		out=out+"  function main(){document.body.innerHTML=src4(k=prompt(\"enter the decryption key\"),window.atob(d))}\n"
+		out=out+"s='"+encscripts+"';\n"
+		out=out+"eval(src4(k,windo.atob(s)))\n"
+		out=out+"exmain();ai()"
 		out=out+ "<\/script>"
 
 	}
@@ -71,6 +75,9 @@ function guidec() {
 document.getElementById('messagetext').value=	src4("abc123",window.atob(document.getElementById('programoutput').value));
 
 }
+function exscripts() {
+	return window.btoa(src4(document.getElementById('key').value,document.getElementById('exscript').value));
+}
 function gtm() {
 inbox=document.getElementById('programoutput')
 outbox=document.getElementById('tmout')
@@ -78,21 +85,14 @@ guienc2()
 //outbox.value="data:text/html,"+mks(inbox.value,"text");
 var body = document.getElementById('output')
 var newAnchor = document.createElement('a')
-newAnchor.setAttribute('href',"data:text/html,"+mks(inbox.value,"text"))
+newAnchor.setAttribute('href',"data:text/html,"+mks(inbox.value,"text",exscripts()))
 newAnchor.innerHTML = "This is your message, bookmark it or copy the URI to your favorite notes/text editor"
 body.appendChild(newAnchor)
 }
-var aca =0;
 function tac() {
-	if (aca ==0) {
-		document.getElementById('ac').hidden=false
-			aca=1
-	} else {
-		document.getElementById('ac').hidden=true
-			aca=0
-	}
-
+	document.getElementById('ac').hidden=!document.getElementById('ac').hidden
 }
+
 </script>
 
 <title> Self Decrypting Message Genorator de swiley.net</title>
@@ -105,15 +105,30 @@ Password:<input id="key" type="text" value="password"/>(<b>DO NOT RE-USE</b>)<br
 <input id="b" type="submit" value="generate" onClick="gtm()"/>
 <input id="e" type="submit" value="toggle advanced options" onClick="tac()"/>
 <textarea name="b" hidden="true" id="programoutput" rows="10" cols="50">UUUUUUUUU</textarea>
-<div hidden="true" id=ac>Advanced controls:</div>
+<div hidden="true" id=ac style="background-color:#eef">Advanced controls:<br>
+
+	Script:<textarea name="s" id="exscript" rows="5" cols="25"  >
+function exmain(){ }
+function ai() {
+	if(id!=null) {
+		
+	}
+}
+	</textarea><br>
+
+
+
+</div>
 <div id=output></div>
-<h2>About</h2>
+<h2 style="color:#00f" onclick="document.getElementById('about').hidden=!document.getElementById('about').hidden">About</h2>
+<div hidden=true  id=about>
 <hr>
 
 <p>This tool lets you store and share secret messages without having a special app to de-crypt them. 
 Simply type in your message and a secret password. The generate button creates a data URI (a special link that contains data and doesn't point anywhere) containing your encrypted message and instructions to your browser on how to de-crypt it.
 you can bookmark that link or send it to a friend who can keep it hidden</p>
 <p> The link will render on any JavaScript capable web browser (including iPhones, androids, chrome-books, Linux machines (running Firefox or any webkit browser), Windows, OSX etc). This tool uses the RC4 algorithm (often used by Microsoft) and <b>Will not protect you from technically inclined malefactors</b> (it's intended to keep children and snoopy parents out). Note, <b>This may be illegal for Iranian and Cuban nationals to use </b> (and possibly more) because it may violate US arms export regulations. (but don't quote me on that, RC4 is fairly weak)</p>
-<hr><hr><h2>Sponsors:</h2><hr>
+</div>
+<h2>Sponsor:</h2><hr>
 <iframe scrolling="no" style="border: 0; width: 728px; height: 90px;" src="//coinurl.com/get.php?id=34119"></iframe>
 </body>
