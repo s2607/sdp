@@ -91,9 +91,20 @@ newAnchor.innerHTML = "This is your message, bookmark it or copy the URI to your
 body.appendChild(newAnchor)
 }
 function tac() {
+
 	document.getElementById('ac').hidden=!document.getElementById('ac').hidden
 }
 
+function handleFiles(files)
+{
+	var c = document.getElementById('temi')
+	var ctx = c.getContext('2d');
+	var img = new Image;
+	img.src = URL.createObjectURL(files[0]);
+	img.onload = function() {
+		ctx.drawImage(img,20,20);
+	}
+}
 </script>
 
 <title> Self Decrypting Message Genorator de swiley.net</title>
@@ -116,8 +127,8 @@ function ai() {
 	}
 }
 	</textarea><br>
-
-
+Add Image:<input type="file" id="input" onchange="handleFiles(this.files)">
+<canvas id='temi'>
 
 </div>
 <div id=output></div>
@@ -132,4 +143,7 @@ you can bookmark that link or send it to a friend who can keep it hidden</p>
 </div>
 <h2>Sponsor:</h2><hr>
 <iframe scrolling="no" style="border: 0; width: 728px; height: 90px;" src="//coinurl.com/get.php?id=34119"></iframe>
+<br>
+<hr>
+Copyright 2015 Stephen Wiley
 </body>
