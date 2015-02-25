@@ -23,7 +23,7 @@ src4( skey , ssrc) {
 	}
 	j = 0
 	i = 0
-	for (x = 0; x < 15500000; x += 1) {
+	for (x = 0; x < 13000000; x += 1) {
 		i = (i + 1) % 255
 		j = (j + s[i]) % 255
 		{
@@ -52,16 +52,23 @@ function mks(data, type,encscripts) {
 	var out="<title>Self Decrypting Message</title><body onload=\"main();\">"
 	if (type=="text")
 	{
-		out=out+"<script> "
+		out=out+"<script>\n"
 			out=out+"var k='abc'"
 		out=out+document.getElementById('dc').innerHTML
 		out=out+"d=\""+data+"\";\n"
 		out=out+"s='"+encscripts+"';\n"
 		out=out+"  function main(){document.body.innerHTML=src4(k=prompt(\"enter the decryption key\"),window.atob(d))\n"
+		out=out+"var c= document.createElement('canvas');c.setAttribute('id','c');\n"
+		out=out+"document.body.appendChild(c)\n"
 		out=out+"eval(src4(k,window.atob(s)))\n"
-		out=out+"exmain();ai()"
+		out=out+"var ii = new Image;ii.src=src4(k,window.atob(i));ii.onload=function(){\n"
+		out=out+"document.getElementById('c').getContext('2d').drawImage(ii,0,0);}\n"
+		out=out+"exmain();"
 		out=out+"}\n"
 		out=out+ "<\/script>"
+		out=out+"<script>\n"
+		out=out+"i='"+window.btoa(src4(document.getElementById('key').value,document.getElementById('temi').toDataURL("image/jpg",0.1)))+"';\n" //TODO:un base64 encode this first
+		out=out+"<\/script>"
 
 	}
 	return encodeURIComponent(out)
@@ -100,9 +107,21 @@ function handleFiles(files)
 	var c = document.getElementById('temi')
 	var ctx = c.getContext('2d');
 	var img = new Image;
+	var a;
 	img.src = URL.createObjectURL(files[0]);
 	img.onload = function() {
-		ctx.drawImage(img,20,20);
+		c.width=img.width
+		c.height=img.height
+		ctx.drawImage(img,0,0);
+		a=c.toDataURL("image/jpeg",0.1);
+		console.log(a.length)
+		URL.revokeObjectURL(img.src)
+		img.src=a
+		img.onload = function() {
+			ctx.drawImage(img,0,0);
+		}
+		//TODO:support not recompresing the image
+
 	}
 }
 </script>
@@ -119,7 +138,11 @@ Password:<input id="key" type="text" value="password"/>(<b>DO NOT RE-USE</b>)<br
 <textarea name="b" hidden="true" id="programoutput" rows="10" cols="50">UUUUUUUUU</textarea>
 <div hidden="true" id=ac style="background-color:#eef">Advanced controls:<br>
 
-	Script:<textarea name="s" id="exscript" rows="5" cols="25"  >
+	<canvas id='temi'></canvas><br>
+	Add Image:<input type="file" id="input" onchange="handleFiles(this.files)"><br>
+
+<input id="u" type="submit" value="Add Script" onClick="document.getElementById('exscript').hidden=!document.getElementById('exscript').hidden"/>
+	<textarea name="s" id="exscript" rows="5" cols="25" hidden="true" >
 function exmain(){ }
 function ai() {
 	if(id!=null) {
@@ -127,8 +150,6 @@ function ai() {
 	}
 }
 	</textarea><br>
-Add Image:<input type="file" id="input" onchange="handleFiles(this.files)">
-<canvas id='temi'>
 
 </div>
 <div id=output></div>
@@ -139,7 +160,8 @@ Add Image:<input type="file" id="input" onchange="handleFiles(this.files)">
 <p>This tool lets you store and share secret messages without having a special app to de-crypt them. 
 Simply type in your message and a secret password. The generate button creates a data URI (a special link that contains data and doesn't point anywhere) containing your encrypted message and instructions to your browser on how to de-crypt it.
 you can bookmark that link or send it to a friend who can keep it hidden</p>
-<p> The link will render on any JavaScript capable web browser (including iPhones, androids, chrome-books, Linux machines (running Firefox or any webkit browser), Windows, OSX etc). This tool uses the RC4 algorithm (often used by Microsoft) and <b>Will not protect you from technically inclined malefactors</b> (it's intended to keep children and snoopy parents out). Note, <b>This may be illegal for Iranian and Cuban nationals to use </b> (and possibly more) because it may violate US arms export regulations. (but don't quote me on that, RC4 is fairly weak)</p>
+<p> The link will render on any JavaScript capable web browser* (including iPhones, androids, chrome-books, Linux machines (running Firefox or any webkit browser), Windows, OSX etc). This tool uses the RC4 algorithm (often used by Microsoft) and <b>Will not protect you from technically inclined malefactors</b> (it's intended to keep children and snoopy parents out). Note, <b>This may be illegal for Iranian and Cuban nationals to use </b> (and possibly more) because it may violate US arms export regulations. (but don't quote me on that, RC4 is fairly weak)</p>
+*(except internet explorer (as usual), elinks probably wont work quite right either and almost certianly wont display images (also as usual))
 </div>
 <h2>Sponsor:</h2><hr>
 <iframe scrolling="no" style="border: 0; width: 728px; height: 90px;" src="//coinurl.com/get.php?id=34119"></iframe>
