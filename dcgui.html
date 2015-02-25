@@ -60,10 +60,11 @@ function mks(data, type,encscripts) {
 		out=out+"  function main(){document.body.innerHTML=src4(k=prompt(\"enter the decryption key\"),window.atob(d))\n"
 		out=out+"var c= document.createElement('canvas');c.setAttribute('id','c');\n"
 		out=out+"document.body.appendChild(c)\n"
-		out=out+"eval(src4(k,window.atob(s)))\n"
 		out=out+"var ii = new Image;ii.src=src4(k,window.atob(i));ii.onload=function(){\n"
 		out=out+"document.getElementById('c').getContext('2d').drawImage(ii,0,0);}\n"
-		out=out+"exmain();"
+		out=out+"try{"
+		out=out+"eval(src4(k,window.atob(s)))\n"
+		out=out+"exmain();}catch(e){console.log(e);}\n"
 		out=out+"}\n"
 		out=out+ "<\/script>"
 		out=out+"<script>\n"
@@ -143,10 +144,23 @@ Password:<input id="key" type="text" value="password"/>(<b>DO NOT RE-USE</b>)<br
 
 <input id="u" type="submit" value="Add Script" onClick="document.getElementById('exscript').hidden=!document.getElementById('exscript').hidden"/>
 	<textarea name="s" id="exscript" rows="5" cols="25" hidden="true" >
-function exmain(){ }
-function ai() {
-	if(id!=null) {
-		
+function exmain(){ 
+	var e="false"
+	//put custom code here
+	//this is an (unfinished) example self destruct program, remove the slashes from the next line to enable it
+
+	//e="true"
+	if(e) {
+		try {
+
+			//TODO: put the code here
+
+		}
+		catch(e) {
+		document.body.innerHTML=""
+		console.log(e)
+		death()
+		}
 	}
 }
 	</textarea><br>
