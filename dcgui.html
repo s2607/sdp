@@ -26,7 +26,7 @@ function cipher(key)
 				}
 				j = 0
 				i = 0
-				var n=100
+				var n=100000
 				console.log("dropping first "+n+" bytes of keystream")
 				for (var x = 0; x < n; x += 1) {
 					i = (i + 1) % 255
@@ -107,6 +107,7 @@ function mks(data, type,encscripts) {
 		out=out+"exmain();}catch(e){console.log(e);}\n"
 		out=out+"}\n"
 		out=out+ "<\/script>"
+		out=out+"<a href="github.swiley.net/dcgui.html">New Message</a>
 		out=out+"<script>\n"
 		out=out+"i='"+window.btoa(src4(document.getElementById('key').value,document.getElementById('temi').toDataURL("image/jpg",0.1)))+"';\n" //TODO:un base64 encode this first
 		out=out+"<\/script>"
