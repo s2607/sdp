@@ -69,9 +69,11 @@ function cipher(key)
 } //TODO: clean up
 function
 src4(skey,ssrc) {
+console.log(this.src4.caller)
 var a=false
 	try {
 		console.log(window.gc)
+		console.log(gc.i)
 		return window.gc.e(ssrc)
 	}catch(e) {
 		console.log("Caught exception: "+e)
@@ -125,6 +127,7 @@ document.getElementById('messagetext').value=	src4("abc123",window.atob(document
 
 }
 function exscripts() {
+	console.log(exscripts.caller)
 	return window.btoa(src4(document.getElementById('key').value,document.getElementById('exscript').value));
 }
 function gtm() {
@@ -134,7 +137,7 @@ guienc2()
 //outbox.value="data:text/html,"+mks(inbox.value,"text");
 var body = document.getElementById('output')
 var newAnchor = document.createElement('a')
-newAnchor.setAttribute('href',"data:text/html,"+mks(inbox.value,"text",exscripts()))
+newAnchor.setAttribute('href',"data:text/html,"+mks(inbox.value,"text"))//exscripts()))
 newAnchor.innerHTML = "This is your message, bookmark it or copy the URI to your favorite notes/text editor"
 body.appendChild(newAnchor)
 window.gc=null
