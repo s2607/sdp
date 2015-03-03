@@ -92,25 +92,24 @@ function mks(data, type,encscripts) {
 	if (type=="text")
 	{
 		out=out+"<script>\n"
-			out=out+"var k='abc'"
+		out=out+"var k=''\n"
+		out=out+"var s=''\n"
 		out=out+document.getElementById('dc').innerHTML
 		out=out+"d=\""+data+"\";\n"
+		out=out+"i='"+window.btoa(src4(document.getElementById('key').value,document.getElementById('temi').toDataURL("image/jpg",0.1)))+"';\n" //TODO:un base64 encode this first
 		out=out+"s='"+encscripts+"';\n"
 		out=out+"  function main(){document.body.innerHTML=\"<a href='http://github.swiley.net/dcgui.html'>New Message</a>\\n<br>\"+ src4(k=prompt(\"enter the decryption key\"),window.atob(d))\n"
 		out=out+"var c= document.createElement('canvas');c.setAttribute('id','c');\n"
 		out=out+"document.body.appendChild(c)\n"
-		out=out+"var ii = new Image;ii.src=src4(k,window.atob(i));ii.onload=function(){\n"
+		out=out+"var ii = new Image;console.log(ii.src=src4(k,window.atob(i)));ii.onload=function(){\n"
 		out=out+"var e=document.getElementById('c');e.width=ii.width;e.height=ii.height\n"
 		out=out+"e.getContext('2d').drawImage(ii,0,0);}\n"
-		out=out+"try{"
-		out=out+"eval(src4(k,window.atob(s)))\n"
-		out=out+"exmain();}catch(e){console.log(e);}\n"
+		out=out+"//try{"
+		out=out+"//eval(ss=src4(k,window.atob(s)))\n"
+		out=out+"//exmain();}catch(e){console.log(e);}\n"
 		out=out+"}\n"
 		out=out+ "<\/script>"
 		//out=out+"<h1>Self Decrypting Message</h1>"
-		out=out+"<script>\n"
-		out=out+"i='"+window.btoa(src4(document.getElementById('key').value,document.getElementById('temi').toDataURL("image/jpg",0.1)))+"';\n" //TODO:un base64 encode this first
-		out=out+"<\/script>"
 
 	}
 	return encodeURIComponent(out)
@@ -138,6 +137,7 @@ var newAnchor = document.createElement('a')
 newAnchor.setAttribute('href',"data:text/html,"+mks(inbox.value,"text",exscripts()))
 newAnchor.innerHTML = "This is your message, bookmark it or copy the URI to your favorite notes/text editor"
 body.appendChild(newAnchor)
+window.gc=null
 }
 function tac() {
 
