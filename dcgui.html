@@ -143,6 +143,19 @@ function tac() {
 
 	document.getElementById('ac').hidden=!document.getElementById('ac').hidden
 }
+function attatchimage(scale,c,img) {
+	//img.onload=null
+		c.width=img.width*scale
+		c.height=img.height*scale
+		c.getContext("2d").drawImage(img,0,0,img.width*scale,img.height*scale);
+		console.log(c.toDataURL("image/jpeg",0.1).length)
+		if(c.toDataURL("image/jpeg",0.1).length>32000)
+			return attatchimage(scale/2,c,img)
+		else
+
+			
+		return c.toDataURL("image/jpeg",0.1)
+}
 
 function handleFiles(files)
 {
@@ -151,17 +164,14 @@ function handleFiles(files)
 	var img = new Image;
 	var a;
 	img.src = URL.createObjectURL(files[0]);
+	var fimg = new Image;
 	img.onload = function() {
-		c.width=img.width
-		c.height=img.height
-		ctx.drawImage(img,0,0);
-		a=c.toDataURL("image/jpeg",0.1);
-		console.log(a.length)
 		URL.revokeObjectURL(img.src)
-		img.src=a
-		img.onload = function() {
-			ctx.drawImage(img,0,0);
-		}
+			
+		a=attatchimage(0.9,c,img)
+		console.log(a.length)
+		fimg.src=a
+			ctx.drawImage(fimg,0,0)
 		//TODO:support not recompresing the image
 
 	}
