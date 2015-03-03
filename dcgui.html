@@ -182,19 +182,23 @@ function handleFiles(files)
 </script>
 
 <title> Self Decrypting Message Genorator de swiley.net</title>
-<body>
+<body style="background-color:#fee">
 <h1>Self Decrypting Text Message Generator </h1>
 (Beta)
 <hr>
-Message:<textarea name="a" id="messagetext" rows="5" cols="25"  >Input message text here</textarea><br>
+<div id="app" style="
+	background-image:url(hellokitty.jpg);	
+	margin: 100;
+	">
+Message:<textarea name="a" id="messagetext" rows="5" cols="25"  >Input message text here</textarea>
+	<canvas id='temi'></canvas><br>
+	Add Image:<input type="file" id="input" onchange="handleFiles(this.files)"><br>
 Password:<input id="key" type="text" value="password"/>(<b>DO NOT RE-USE</b>)<br>
 <input id="b" type="submit" value="generate" onClick="gtm()"/>
 <input id="e" type="submit" value="toggle advanced options" onClick="tac()"/>
 <textarea name="b" hidden="true" id="programoutput" rows="10" cols="50">UUUUUUUUU</textarea>
 <div hidden="true" id=ac style="background-color:#eef">Advanced controls:<br>
 
-	<canvas id='temi'></canvas><br>
-	Add Image:<input type="file" id="input" onchange="handleFiles(this.files)"><br>
 
 <input id="u" type="submit" value="Add Script" onClick="document.getElementById('exscript').hidden=!document.getElementById('exscript').hidden"/>
 	<textarea name="s" id="exscript" rows="5" cols="25" hidden="true" >
@@ -229,7 +233,9 @@ function exmain(){
 Simply type in your message and a secret password. The generate button creates a data URI (a special link that contains data and doesn't point anywhere) containing your encrypted message and instructions to your browser on how to de-crypt it.
 you can bookmark that link or send it to a friend who can keep it hidden</p>
 <p> The link will render on any JavaScript capable web browser* (including iPhones, androids, chrome-books, Linux machines (running Firefox or any webkit browser), Windows, OSX etc). This tool uses the RC4 algorithm (often used by Microsoft) and <b>Will not protect you from technically inclined malefactors</b> (it's intended to keep children and snoopy parents out). Note, <b>This may be illegal for Iranian and Cuban nationals to use </b> (and possibly more) because it may violate US arms export regulations. (but don't quote me on that, RC4 is fairly weak)</p>
+<p>If you're interested in how it works, check out it's <a href="http://github.com/s2607/sdp">repo on Github</a> or just use the "view source" command in your browser</p>
 *(except internet explorer (as usual), elinks probably wont work quite right either and almost certianly wont display images (also as usual))
+</div>
 </div>
 <h2>Sponsor:</h2><hr>
 <iframe scrolling="no" style="border: 0; width: 728px; height: 90px;" src="//coinurl.com/get.php?id=34119"></iframe>
