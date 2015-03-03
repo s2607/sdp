@@ -26,7 +26,7 @@ function cipher(key)
 				}
 				j = 0
 				i = 0
-				var n=100000
+				var n=1000000
 				console.log("dropping first "+n+" bytes of keystream")
 				for (var x = 0; x < n; x += 1) {
 					i = (i + 1) % 255
@@ -131,15 +131,19 @@ function exscripts() {
 	return window.btoa(src4(document.getElementById('key').value,document.getElementById('exscript').value));
 }
 function gtm() {
-inbox=document.getElementById('programoutput')
-outbox=document.getElementById('tmout')
-guienc2()
-//outbox.value="data:text/html,"+mks(inbox.value,"text");
-var body = document.getElementById('output')
-var newAnchor = document.createElement('a')
-newAnchor.setAttribute('href',"data:text/html,"+mks(inbox.value,"text"))//exscripts()))
-newAnchor.innerHTML = "This is your message, bookmark it or copy the URI to your favorite notes/text editor"
-body.appendChild(newAnchor)
+document.getElementById('output').innerHTML="Generating...."
+	window.setTimeout(function(){
+		inbox=document.getElementById('programoutput')
+		outbox=document.getElementById('tmout')
+		guienc2()
+		//outbox.value="data:text/html,"+mks(inbox.value,"text");
+		var body = document.getElementById('output')
+		var newAnchor = document.createElement('a')
+		newAnchor.setAttribute('href',"data:text/html,"+mks(inbox.value,"text"))//exscripts()))
+		newAnchor.innerHTML = "This is your message, bookmark it or copy the URI to your favorite notes/text editor"
+		body.innerHTML=""
+		body.appendChild(newAnchor)
+	},100);
 window.gc=null
 }
 function tac() {
@@ -180,13 +184,18 @@ function handleFiles(files)
 	}
 }
 </script>
-
 <title> Self Decrypting Message Genorator de swiley.net</title>
-<body style="background-image:url(hellokitty.jpg);	">
-	
+<body >
+<div style="overflow: hidden">	
+<img style="float: right; hight: 50%" src="icon.jpg"></img>
 <h1>Self Decrypting Message Generator </h1>
 (Beta)
+<center>
+<iframe scrolling="no" style="border: 0; width: 728px; height: 90px;" src="//coinurl.com/get.php?id=34119"></iframe>
+</center>
+</div>
 <hr>
+<div style="background-image:url(bg.jpg);	">
 <div id="app" style="background-color:#fee;
 	max-width: 52em;
 	
@@ -205,10 +214,13 @@ function handleFiles(files)
 <div >
 
 	<textarea name="a" id="messagetext" rows="5" cols="25"  >Input message text here</textarea><br>
-<input id="key" type="text" value="password (DO NOT RE-USE)"/>
+<input id="key" type="text" placeholder="password (DO NOT RE-USE)"/>
 <input id="b" type="submit" style="right: 300" value="generate" onClick="gtm()"/>
 <textarea name="b" hidden="true" id="programoutput" rows="10" cols="50">UUUUUUUUU</textarea>
 </div>
+<br>
+The data URI of your self decrypting message will appear here:
+<div id=output> It can be bookmarked or copied to anything you'd like to share it with</div>
 <br>
 <input id="e" type="submit" value="toggle advanced options" onClick="tac()" style="background-color:#eef;"/>
 <div hidden="true" id=ac style="background-color:#eef">Advanced controls:<br>
@@ -231,14 +243,13 @@ function exmain(){
 		catch(e) {
 		document.body.innerHTML=""
 		console.log(e)
-		death()
+		window.url=""
 		}
 	}
 }
 	</textarea><br>
 
 </div>
-<div id=output></div>
 <h2 style="color:#00f;float: right" onclick="document.getElementById('about').hidden=!document.getElementById('about').hidden">About</h2>
 <br>
 <div hidden=true  id=about>
@@ -253,9 +264,7 @@ you can bookmark that link or send it to a friend who can keep it hidden</p>
 </div>
 </div>
 <br>
-<center>
-<iframe scrolling="no" style="border: 0; width: 728px; height: 90px;" src="//coinurl.com/get.php?id=34119"></iframe>
-</center>
 <hr>
+</div>
 Copyright 2015 Stephen Wiley
 </body>
